@@ -1,0 +1,11 @@
+
+.required::after {
+    content: " *";
+    color: rgb(255, 0, 0);
+    font-weight: 800;
+}
+
+.spSquare {
+    background-color: #593196;
+    border: 1px solid #593196;
+}

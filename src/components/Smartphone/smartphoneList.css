@@ -1,0 +1,104 @@
+/* General Card */
+
+.spCard {
+    height: 250px;
+    width: fit-content;
+    margin: 1rem 1rem;
+    background-color: #f0f0f0;
+    border-radius: 0.625rem;
+}
+
+/* Image Card */
+
+.smartphoneCardImg {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 0.1563rem;
+    height: 13.75rem;
+    width: auto;
+    border-radius: 0.625rem;
+}   
+
+.smartphoneCardImg:hover {
+    position: relative;
+    transition: ease 0.5s;
+    transform: translateY(-10px);
+    cursor: pointer;
+}
+
+.smartphoneCardImgContainer {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 0.625rem;
+    border-radius: 0.625rem;
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+/* Details Card */
+
+.spCardDetail {
+    height: 100%;
+    width: 100%;
+    padding: 0.5rem 0rem;
+}
+
+.spCardDetail h5 {
+    display: flex;
+    justify-content: left;
+    text-align: center;
+    color: #593196;
+    font-weight: 700;
+}
+
+.spCardList {
+    color: #000000;
+    padding: 0rem;
+    margin: 0rem;
+}
+
+.spCardDetail li {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 0.625rem 0.625rem;
+    margin: 0.125rem;
+    border-radius: 0.625rem;
+    width: 100%;
+}
+
+.spCardDetail li:hover {
+    background-color: rgb(89, 49, 150);
+    transition: ease 0.25s;
+    cursor: pointer;
+    color: #ffffff;
+    padding: 0.625rem 1.25rem;
+    zoom: 1.2;
+}
+
+.item-features {
+    align-items: center;
+}
+
+/* Icons Cards */
+
+.bgCircle {
+    display: inline-block;
+    justify-content: center;
+    text-align: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0.125rem 0.25rem;
+    border-radius: 50%;
+    background-color: #333333;
+}
+
+.bgCircle img {
+    display: inline-block;
+    justify-content: center;
+    text-align: center;
+    width: 0.875rem;
+    height: auto;
+}
