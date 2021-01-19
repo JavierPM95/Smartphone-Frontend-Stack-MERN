@@ -34,7 +34,7 @@ const ModalForm = (props) => {
     });
   };
 
-/* Handle Submit Form */
+/* Handle Submit Form */ 
   const handleCreateSubmitForm = async (e) => {
     e.preventDefault();
     await dispatch(createSmartphone(smartphoneFeatures))
