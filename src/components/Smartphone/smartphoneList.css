@@ -1,8 +1,12 @@
 /* General Card */
+.cardList {
+    display: flex;
+    flex-wrap: wrap-reverse;
+}
 
 .spCard {
-    height: 250px;
-    width: fit-content;
+    height: 280px;
+    width: 348px;
     margin: 1rem 1rem;
     background-color: #f0f0f0;
     border-radius: 0.625rem;
@@ -14,8 +18,8 @@
     display: flex;
     justify-content: center;
     text-align: center;
-    margin: 0.1563rem;
-    height: 13.75rem;
+    margin: 4px;
+    height: 15.625rem;
     width: auto;
     border-radius: 0.625rem;
 }   
@@ -23,7 +27,7 @@
 .smartphoneCardImg:hover {
     position: relative;
     transition: ease 0.5s;
-    transform: translateY(-10px);
+    transform: translateY(-20px) scale(1.05);
     cursor: pointer;
 }
 
@@ -46,12 +50,41 @@
     padding: 0.5rem 0rem;
 }
 
+.spCardTitle {
+    display: flex;
+    justify-content: space-between;
+    margin: 4px 4px;
+    align-items: flex-start;
+}
+
+
 .spCardDetail h5 {
     display: flex;
     justify-content: left;
     text-align: center;
     color: #593196;
     font-weight: 700;
+    max-width: 9.375rem;
+}
+
+
+.configButton span {
+    display: inline-block;
+    margin: 4px 4px;
+}
+
+.deleteButton {
+    color: #fc3939;
+}
+
+.editButton {
+    color: #efa31d;
+}
+
+.configButton span:hover {
+    cursor: pointer;
+    transition: ease 0.2s;
+    transform: scale(1.8);
 }
 
 .spCardList {
@@ -74,8 +107,7 @@
     transition: ease 0.25s;
     cursor: pointer;
     color: #ffffff;
-    padding: 0.625rem 1.25rem;
-    zoom: 1.2;
+    transform: scale(1.1) translate(0px);
 }
 
 .item-features {

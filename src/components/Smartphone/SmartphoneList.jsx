@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+/* React Redux */
 import { useDispatch, useSelector } from "react-redux";
-import { smartphoneAction } from "../../Redux/SmartphoneDucks";
+import { deleteSmartphone, getSmartphone } from "../../Redux/SmartphoneDucks";
+
+//Components
+import ModalForm from './ModalForm'
 import "./smartphoneList.css";
 
 //icons
@@ -8,30 +13,51 @@ import dimentionSmartphone from "../../icons/dimentionSmartphone.svg";
 import cpuSmartphone from "../../icons/cpuSmartphone.svg";
 import batterySmartphone from "../../icons/batterySmartphone.svg";
 import cameraSmartphone from "../../icons/cameraSmartphone.svg";
-import ModalForm from './ModalForm'
+
+//Thirds Packages
+import { toast, ToastContainer } from "react-toastify";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
 
 const SmartphoneList = () => {
+  
+  //Redux Connection
   const dispatch = useDispatch();
-
   const smartphones = useSelector((store) => store.smartphones.smartphoneArray);
-  console.log(smartphones);
+  
+
+  // Load Content
+  const loadSmartphone = () => {
+    dispatch(getSmartphone());
+  }
+
+  useEffect(() => {
+    loadSmartphone()
+  }, [])
+
+
+  //Handle Events
+  const handleDelete = async(id) => {
+    await dispatch(deleteSmartphone(id))
+    toast.error('The smartphone erased successfully')
+    loadSmartphone();
+  }
+
+
+  // Modals Buttons Appearances
+  const newSmartphoneModal = <button className="btn btn-success">Add new smartphone</button>
+  const editSmartphoneModal = <span><FontAwesomeIcon icon={faEdit} /></span>
 
   return (
     <>
       <div className="row my-4">
         <h2>Smartphone List</h2>
         <div className="ml-auto">
-          <ModalForm cpuSvg={cpuSmartphone} dimentionSmartphoneSvg={dimentionSmartphone} cameraSmartphoneSvg={cameraSmartphone} batterySmartphoneSvg={batterySmartphone} />
-          <button
-            className="btn btn-primary"
-            onClick={() => dispatch(smartphoneAction())}
-          >
-            Get smartphones
-          </button>
+              <ModalForm newSmartphoneModal={newSmartphoneModal} smartphones={smartphones} loadSmartphone={loadSmartphone} cpuSvg={cpuSmartphone} dimentionSmartphoneSvg={dimentionSmartphone} cameraSmartphoneSvg={cameraSmartphone} batterySmartphoneSvg={batterySmartphone} />
         </div>
       </div>
       <div className="row">
-        <div className="d-flex">
+        <div className="d-flex cardList">
           {smartphones.map((smartphone) => (
             <div key={smartphone._id} className="spCard">
               <div className="d-flex">
@@ -40,11 +66,18 @@ const SmartphoneList = () => {
                     className="smartphoneCardImg"
                     src={smartphone.urlImg}
                     alt="smartphone-img"
+                    title={smartphone.name}
                   />
                 </div>
                 <div className="col-md-7 spCardDetail">
-                  <div>
+                  <div className="spCardTitle">
                     <h5 className="">{smartphone.name}</h5>
+                    <div className="configButton">
+                      <div className="editButton" title="Edit smartphone">
+                      <ModalForm smartphone={smartphone} editSmartphoneModal={editSmartphoneModal} smartphones={smartphones} loadSmartphone={loadSmartphone} cpuSvg={cpuSmartphone} dimentionSmartphoneSvg={dimentionSmartphone} cameraSmartphoneSvg={cameraSmartphone} batterySmartphoneSvg={batterySmartphone} />
+                      </div>
+                      <span className="deleteButton" title="Delete smartphone" onClick={() => {handleDelete(smartphone._id)}}><FontAwesomeIcon icon={faTrash} /></span>
+                    </div>
                   </div>
                   <div>
                     <ul className="spCardList">
@@ -61,13 +94,13 @@ const SmartphoneList = () => {
                             alt="Smartphone Dimention"
                           />
                         </span>
-                        <span>{smartphone.screenDimention}</span>
+                        <span>{smartphone.screenDimention}"</span>
                       </li>
                       <li className="item-features">
                         <span className="bgCircle">
                           <img src={cameraSmartphone} alt="Smartphone Camera" />
                         </span>
-                        <span>{smartphone.mainCamera}</span>
+                        <span>{smartphone.mainCamera} Mpx</span>
                       </li>
                       <li className="item-features">
                         <span className="bgCircle">
@@ -76,7 +109,7 @@ const SmartphoneList = () => {
                             alt="Smartphone Battery"
                           />
                         </span>
-                        <span>{smartphone.power}</span>
+                        <span>{smartphone.power} mAh</span>
                       </li>
                     </ul>
                   </div>
@@ -84,6 +117,7 @@ const SmartphoneList = () => {
               </div>
             </div>
           ))}
+          <ToastContainer />
         </div>
       </div>
     </>
