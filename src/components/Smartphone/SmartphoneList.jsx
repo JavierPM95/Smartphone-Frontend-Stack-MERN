@@ -67,6 +67,7 @@ const SmartphoneList = () => {
                     src={smartphone.urlImg}
                     alt="smartphone-img"
                     title={smartphone.name}
+                    
                   />
                 </div>
                 <div className="col-md-7 spCardDetail">
@@ -92,6 +93,7 @@ const SmartphoneList = () => {
                           <img
                             src={dimentionSmartphone}
                             alt="Smartphone Dimention"
+                            
                           />
                         </span>
                         <span>{smartphone.screenDimention}"</span>
@@ -107,6 +109,7 @@ const SmartphoneList = () => {
                           <img
                             src={batterySmartphone}
                             alt="Smartphone Battery"
+                            
                           />
                         </span>
                         <span>{smartphone.power} mAh</span>
