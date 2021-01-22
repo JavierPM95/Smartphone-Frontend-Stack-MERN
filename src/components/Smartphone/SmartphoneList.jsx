@@ -38,9 +38,11 @@ const SmartphoneList = () => {
 
   //Handle Events
   const handleDelete = async(id) => {
-    await dispatch(deleteSmartphone(id))
-    toast.error('The smartphone erased successfully')
-    loadSmartphone();
+    if (window.confirm('You really want to delete this smartphone?')) {
+      await dispatch(deleteSmartphone(id))
+      toast.error('The smartphone erased successfully')
+      loadSmartphone();
+    };
   }
 
 
