@@ -1,0 +1,14 @@
+.sortContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #f0f0f0
+}
+
+.sortProduct span {
+    margin: 0.5rem;
+}
+
+.sortProduct option {
+    
+}

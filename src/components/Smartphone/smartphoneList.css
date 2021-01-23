@@ -1,7 +1,7 @@
 /* General Card */
 .cardList {
     display: flex;
-    flex-wrap: wrap-reverse;
+    flex-wrap: wrap;
 }
 
 .spCard {
@@ -112,6 +112,10 @@
 
 .item-features {
     align-items: center;
+}
+
+.item-features-details {
+    margin-left: 0.25rem;
 }
 
 /* Icons Cards */
