@@ -24,7 +24,7 @@ const SmartphoneList = () => {
   //Redux Connection
   const dispatch = useDispatch();
   const smartphones = useSelector(
-    (store) => store.smartphones.smartphonesFiltered
+    (store) => store.smartphones
   );
 
   // Load Content
@@ -60,14 +60,14 @@ const SmartphoneList = () => {
 
   return (
     <>
-    <button className="btn" onClick={() => smartphones}>aqui</button>
+    <button className="btn" onClick={() => smartphones.smartphonesFiltered}>aqui</button>
       <SortProduct />
       <div className="row my-4">
         <h2>Smartphone List</h2>
         <div className="ml-auto">
           <ModalForm
             newSmartphoneModal={newSmartphoneModal}
-            smartphones={smartphones}
+            smartphones={smartphones.smartphonesFiltered}
             loadSmartphone={loadSmartphone}
             cpuSvg={cpuSmartphone}
             dimentionSmartphoneSvg={dimentionSmartphone}
@@ -83,7 +83,7 @@ const SmartphoneList = () => {
       ) : (
         <div className="row">
           <div className="d-flex cardList">
-            {smartphones.map((smartphone) => (
+            {smartphones.smartphonesFiltered.map((smartphone) => (
               <div key={smartphone._id} className="spCard">
                 <div className="d-flex">
                   <div className="col-md-4 smartphoneCardImgContainer">
@@ -100,7 +100,7 @@ const SmartphoneList = () => {
                       <div className="configButton">
                         <div className="editButton" title="Edit smartphone">
                           <ModalForm
-                            smartphones={smartphones}
+                            smartphones={smartphones.smartphonesFiltered}
                             smartphone={smartphone}
                             loadSmartphone={loadSmartphone}
                             editSmartphoneModal={editSmartphoneModal}
