@@ -42,14 +42,14 @@ export default function smartphoneReducer(
     case SET_SMARTPHONE_FILTER:
       return {
         ...state,
-        smartphonesFiltered: action.payload.smartphoneFiltered,
-        sort: action.payload.filterSelected,
+        sort: {...state.sort, filter: action.payload.filterSelected},
+        smartphonesFiltered: action.payload.smartphoneFilter,
       };
     case SET_SMARTPHONE_SORT:
       return {
         ...state,
+        sort: {...state.sort, sort: action.payload.sortSelected},
         smartphonesFiltered: action.payload.smartphonesSorted,
-        sort: action.payload.sortSelected,
       };
     default:
       return state;
@@ -112,7 +112,8 @@ export const editSmartphone = (smartphoneFeatures) => async (dispatch) => {
 export const setSmartphoneFilter = (e) => (dispatch, getState) => {
   const filterSelected = e.target.value;
   const smartphones = getState().smartphones.smartphoneArray;
-  const smartphonesFiltered = () => {
+  const sortSelected = getState().smartphones.sort.sort
+  const smartphoneFilter = () => {
     switch (filterSelected) {
       case "apple":
         return smartphones.filter((smartphone) =>
@@ -139,20 +140,31 @@ export const setSmartphoneFilter = (e) => (dispatch, getState) => {
           /xiaomi/gi.test(smartphone.name)
         );
       default:
-        return smartphones.sort((a, b) => (a._id < b._id ? 1 : -1));
+        switch (sortSelected) {
+          case "newest":
+            return smartphones.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+          case "oldest":
+            return smartphones.sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1));
+          case "a-z":
+            return smartphones.sort((a, b) => (a.name > b.name ? 1 : -1));
+          case "z-a":
+            return smartphones.sort((a, b) => (a.name < b.name ? 1 : -1));
+          default:
+            return smartphones.sort((a, b) => (a._id < b._id ? 1 : -1));
+        }
     }
   };
   dispatch({
     type: SET_SMARTPHONE_FILTER,
     payload: {
-      smartphoneFiltered: smartphonesFiltered(),
-      filterSelected: { filter: filterSelected },
+      smartphoneFilter: smartphoneFilter(),
+      filterSelected: filterSelected
     },
   });
 };
 
-export const setSmartphoneSort = (e) => (dispatch, getState) => {
-  const sortSelected = e.target.value;
+export const setSmartphoneSort = (value) => (dispatch, getState) => {
+  const sortSelected = value;
   const smartphones = getState().smartphones.smartphonesFiltered;
   const smartphonesSorted = () => {
     switch (sortSelected) {
@@ -165,14 +177,14 @@ export const setSmartphoneSort = (e) => (dispatch, getState) => {
       case "z-a":
         return smartphones.sort((a, b) => (a.name < b.name ? 1 : -1));
       default:
-        return smartphones.sort((a, b) => (a._id < b._id ? 1 : -1));
+        return smartphones.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
     }
   };
   dispatch({
     type: SET_SMARTPHONE_SORT,
     payload: {
       smartphonesSorted: smartphonesSorted(),
-      sortSelected: { sort: sortSelected },
+      sortSelected: sortSelected
     },
   });
 };

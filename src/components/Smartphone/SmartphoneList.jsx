@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 /* React Redux */
 import { useDispatch, useSelector } from "react-redux";
-import { deleteSmartphone, getSmartphone } from "../../Redux/SmartphoneDucks";
+import { deleteSmartphone, getSmartphone, setSmartphoneSort } from "../../Redux/SmartphoneDucks";
 
 //Components
 import ModalForm from "./ModalForm";
@@ -28,8 +28,9 @@ const SmartphoneList = () => {
   );
 
   // Load Content
-  const loadSmartphone = () => {
-    dispatch(getSmartphone());
+  const loadSmartphone = async() => {
+    await dispatch(getSmartphone());
+    dispatch(setSmartphoneSort("newest"));
   };
 
   useEffect(() => {
@@ -60,7 +61,6 @@ const SmartphoneList = () => {
 
   return (
     <>
-    <button className="btn" onClick={() => smartphones.smartphonesFiltered}>aqui</button>
       <SortProduct />
       <div className="row my-4">
         <h2>Smartphone List</h2>
