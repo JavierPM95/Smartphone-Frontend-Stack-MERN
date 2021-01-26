@@ -1,6 +1,8 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { setSmartphoneFilter, setSmartphoneSort } from "../../Redux/SmartphoneDucks";
+import { useDispatch, useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilter, faSort } from "@fortawesome/free-solid-svg-icons";
 import "./SortProduct.css";
 
 const SortProduct = () => {
@@ -13,7 +15,7 @@ const SortProduct = () => {
         <span>{smartphones.smartphonesFiltered.length} products found</span>
       </div>
       <div className="sortProduct">
-        <span>Filter</span>
+        <span><FontAwesomeIcon className="faIconsSort" icon={faFilter}/>Filter</span>
         <select
           className="form-select"
           value={smartphones.sort.filter}
@@ -27,7 +29,7 @@ const SortProduct = () => {
           <option value="samsung">Samsung</option>
           <option value="xiaomi">Xiaomi</option>
         </select>
-        <span>Order</span>
+        <span><FontAwesomeIcon className="faIconsSort" icon={faSort}/>Sort</span>
         <select
           className="form-select"
           value={smartphones.sort.sort}

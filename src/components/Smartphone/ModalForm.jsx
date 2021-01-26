@@ -10,6 +10,8 @@ import { createSmartphone, editSmartphone } from "../../Redux/SmartphoneDucks";
 
 // Thirds Packages
 import {toast} from 'react-toastify'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 
 const ModalForm = (props) => {
@@ -73,7 +75,7 @@ const closeModal = () => {
       <Modal isOpen={modal} toggle={toggleModal} autoFocus={true} >
         <ModalHeader className=" text-white font-weight-bold bg-primary">
           <div className="modalHeader">
-            {props.newSmartphoneModal ? "Add a new smartphone" : "Edit smarthone"}
+            {props.newSmartphoneModal ? <h4><FontAwesomeIcon className="faIcons" icon={faPlus}/> Add a new smartphone</h4> : <h4><FontAwesomeIcon className="faIcons" icon={faEdit}/> Edit smartphone</h4>}
           </div>
         </ModalHeader>
         <ModalBody>
@@ -207,9 +209,9 @@ const closeModal = () => {
             Return
           </button>
           {props.newSmartphoneModal ? 
-            <button className="btn btn-success" onClick={handleCreateSubmitForm} >Create smartphone</button>
+            <button className="btn btn-success" onClick={handleCreateSubmitForm} ><FontAwesomeIcon className="faIcons" icon={faPlus} />Create smartphone</button>
             :
-            <button className="btn btn-warning" onClick={() => {handleEditSubmitForm(smartphoneFeatures)}} >Update smartphone</button>
+            <button className="btn btn-warning" onClick={() => {handleEditSubmitForm(smartphoneFeatures)}} ><FontAwesomeIcon className="faIcons" icon={faEdit}/>Update smartphone</button>
           }
         </ModalFooter>
       </Modal>

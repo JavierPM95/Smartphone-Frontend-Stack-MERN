@@ -17,7 +17,7 @@ import cameraSmartphone from "../../icons/cameraSmartphone.svg";
 //Thirds Packages
 import { toast, ToastContainer } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import SortProduct from "./SortProduct";
 
 const SmartphoneList = () => {
@@ -51,11 +51,11 @@ const SmartphoneList = () => {
 
   // Modals Buttons Appearances
   const newSmartphoneModal = (
-    <button className="btn btn-success">Add new smartphone</button>
+    <button className="btn btn-success"><FontAwesomeIcon className="faIcons" icon={faPlus}/>Add new smartphone</button>
   );
   const editSmartphoneModal = (
     <span>
-      <FontAwesomeIcon icon={faEdit} />
+      <FontAwesomeIcon className="faIcons" icon={faEdit} />
     </span>
   );
 
@@ -117,7 +117,7 @@ const SmartphoneList = () => {
                             handleDelete(smartphone);
                           }}
                         >
-                          <FontAwesomeIcon icon={faTrash} />
+                          <FontAwesomeIcon className="lo" icon={faTrash} />
                         </span>
                       </div>
                     </div>
