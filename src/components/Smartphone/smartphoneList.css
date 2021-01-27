@@ -46,6 +46,25 @@
     background-color: #ffffff;
 }
 
+.faIconsFavSp {
+    position: absolute;
+    opacity: 0%;
+    left: 37%;
+    top: 43%;
+    font-size: 30px;
+    color: #ffffff;
+    z-index: 1000;
+}
+
+.faIconsFavSp:hover {
+    opacity: 100%;
+    position: absolute;
+    transition: ease 0.25s;
+    color: #DCCB39;
+    transform: scale(1.75);
+
+}
+
 /* Details Card */
 
 .spCardDetail {

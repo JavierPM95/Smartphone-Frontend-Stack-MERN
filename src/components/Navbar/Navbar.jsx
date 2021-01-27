@@ -1,7 +1,21 @@
-import React from "react";
+import { faHeart, faHeartBroken } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import React, { useState } from "react";
 import {Link} from 'react-router-dom'
+import './Navbar.css'
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const smartphones = useSelector(state => state.smartphones)
+
+
+  const [dropDown, setDropDown] = useState(false)
+
+  const dropDownToggle = () => {
+    setDropDown(!dropDown)
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
@@ -22,15 +36,18 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav ml-auto">
-              <Link className="nav-link active" aria-current="page" to="/">
-                Home
-              </Link>
-              <Link className="nav-link" to="/">
-                Features
-              </Link>
-              <Link className="nav-link" to="/">
-                Pricing
-              </Link>
+              <Dropdown className="dropdown" inNavbar={true} isOpen={dropDown} toggle={dropDownToggle}>
+                <DropdownToggle variant="primary" caret>
+                  <FontAwesomeIcon className="faIconsFavNav" icon={faHeart}/> Favorite
+                </DropdownToggle>
+                <DropdownMenu>
+                  {
+                    smartphones.favorites.length <= 0 ? <DropdownItem header disabled>Add smartphones to favorite list</DropdownItem>
+                    :
+                    smartphones.favorites.map(smartphone => (<DropdownItem key={smartphone._id}>{smartphone.name} <FontAwesomeIcon icon={faHeartBroken} /> </DropdownItem>))
+                  }
+                </DropdownMenu>
+              </Dropdown>
             </div>
           </div>
         </div>

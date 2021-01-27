@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 /* React Redux */
 import { useDispatch, useSelector } from "react-redux";
-import { deleteSmartphone, getSmartphone, setSmartphoneSort } from "../../Redux/SmartphoneDucks";
+import { deleteSmartphone, getSmartphone, setFavorite, setSmartphoneSort } from "../../Redux/SmartphoneDucks";
 
 //Components
 import ModalForm from "./ModalForm";
@@ -17,7 +17,7 @@ import cameraSmartphone from "../../icons/cameraSmartphone.svg";
 //Thirds Packages
 import { toast, ToastContainer } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faHeart, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import SortProduct from "./SortProduct";
 
 const SmartphoneList = () => {
@@ -87,6 +87,7 @@ const SmartphoneList = () => {
               <div key={smartphone._id} className="spCard">
                 <div className="d-flex">
                   <div className="col-md-4 smartphoneCardImgContainer">
+                    <span className="faIconsFavSpBg" onClick={() => dispatch(setFavorite(smartphone))}><FontAwesomeIcon className="faIconsFavSp" icon={faHeart}/></span>
                     <img
                       className="smartphoneCardImg"
                       src={smartphone.urlImg}

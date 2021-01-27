@@ -6,6 +6,7 @@ const smartphoneInitialState = {
   smartphoneArray: [],
   smartphonesFiltered: [],
   sort: {},
+  favorites: []
 };
 
 //Types
@@ -15,6 +16,7 @@ const DELETE_SMARTPHONE = "DELETE_SMARTPHONE";
 const UPDATE_SMARTPHONE = "UPDATE_SMARTPHONE";
 const SET_SMARTPHONE_FILTER = "SET_SMARTPHONE_FILTER";
 const SET_SMARTPHONE_SORT = "SET_SMARTPHONE_SORT";
+const SET_FAVORITE = 'SET_FAVORITE';
 
 //Reducer
 
@@ -50,6 +52,11 @@ export default function smartphoneReducer(
         ...state,
         sort: {...state.sort, sort: action.payload.sortSelected},
         smartphonesFiltered: action.payload.smartphonesSorted,
+      };
+    case SET_FAVORITE:
+      return {
+        ...state,
+        favorites: state.favorites.concat(action.payload)
       };
     default:
       return state;
@@ -188,3 +195,13 @@ export const setSmartphoneSort = (value) => (dispatch, getState) => {
     },
   });
 };
+
+
+
+export const setFavorite = (smartphone) => (dispatch) => {
+  console.log(smartphone);
+  dispatch({
+    type: SET_FAVORITE,
+    payload: smartphone
+  })
+}
