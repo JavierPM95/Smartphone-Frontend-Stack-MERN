@@ -6,6 +6,7 @@ import { faFilter, faSort } from "@fortawesome/free-solid-svg-icons";
 import "./SortProduct.css";
 
 const SortProduct = () => {
+  // Redux
     const dispatch = useDispatch();
     const smartphones = useSelector(state => state.smartphones)
 

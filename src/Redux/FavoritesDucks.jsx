@@ -16,7 +16,6 @@ export default function smartphoneReducer(
 ) {
   switch (action.type) {
     case ADD_FAVORITE:
-      // const newFavoriteList = state.favorites.concat(action.payload);
       return {
         ...state,
         favorites: action.payload.favoriteList,
