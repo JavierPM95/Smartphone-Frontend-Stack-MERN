@@ -1,20 +1,34 @@
 import { faHeart, faHeartBroken } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
-import React, { useState } from "react";
-import {Link} from 'react-router-dom'
-import './Navbar.css'
-import { useSelector } from "react-redux";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from "reactstrap";
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Navbar.css";
+import { useDispatch, useSelector } from "react-redux";
+import { dropdownToggle, removeFavorite } from "../../Redux/FavoritesDucks";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
-  const smartphones = useSelector(state => state.smartphones)
+  // Redux
+  const favorites = useSelector((state) => state.favorites);
+  const dispatch = useDispatch();
 
+  //Favorite Toggle State
+  const dropdownState = favorites.dropdown;
+  const setDropdown = () => {
+    dispatch(dropdownToggle());
+  };
 
-  const [dropDown, setDropDown] = useState(false)
-
-  const dropDownToggle = () => {
-    setDropDown(!dropDown)
-  }
+  //Favorite Handle
+  const removeFavorites = async (smartphone) => {
+    await dispatch(removeFavorite(smartphone));
+    toast.error(`${smartphone.name} have been removed from favorite list`);
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -36,16 +50,45 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav ml-auto">
-              <Dropdown className="dropdown" inNavbar={true} isOpen={dropDown} toggle={dropDownToggle}>
+              <Dropdown
+                className="dropdown"
+                inNavbar={true}
+                isOpen={dropdownState}
+                toggle={setDropdown}
+              >
                 <DropdownToggle variant="primary" caret>
-                  <FontAwesomeIcon className="faIconsFavNav" icon={faHeart}/> Favorite
+                  <FontAwesomeIcon className="faIconsFavNav" icon={faHeart} />{" "}
+                  Favorite
                 </DropdownToggle>
-                <DropdownMenu>
-                  {
-                    smartphones.favorites.length <= 0 ? <DropdownItem header disabled>Add smartphones to favorite list</DropdownItem>
-                    :
-                    smartphones.favorites.map(smartphone => (<DropdownItem key={smartphone._id}>{smartphone.name} <FontAwesomeIcon icon={faHeartBroken} /> </DropdownItem>))
-                  }
+                <DropdownMenu right>
+                  {favorites.favorites.length <= 0 ? (
+                    <DropdownItem header disabled>
+                      Add smartphones to the favorite list
+                    </DropdownItem>
+                  ) : (
+                    favorites.favorites.map((smartphone) => (
+                      <DropdownItem
+                        key={smartphone._id}
+                        className="dropdownItemContainer"
+                      >
+                        <div className="spImgFavContainer">
+                          <img
+                            className="spImgFav"
+                            src={smartphone.urlImg}
+                            alt={smartphone.name}
+                          />
+                        </div>
+                        <div className="spNameFav">{smartphone.name}{" "} </div>
+                        <span className="faIconsFavContainer">
+                          <FontAwesomeIcon
+                            className="faIconsFav"
+                            icon={faHeartBroken}
+                            onClick={() => removeFavorites(smartphone)}
+                          />
+                        </span>{" "}
+                      </DropdownItem>
+                    ))
+                  )}
                 </DropdownMenu>
               </Dropdown>
             </div>

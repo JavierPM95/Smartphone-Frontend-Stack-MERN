@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 
 /* React Redux */
 import { useDispatch, useSelector } from "react-redux";
-import { deleteSmartphone, getSmartphone, setFavorite, setSmartphoneSort } from "../../Redux/SmartphoneDucks";
+import {
+  deleteSmartphone,
+  getSmartphone,
+  setSmartphoneSort,
+} from "../../Redux/SmartphoneDucks";
 
 //Components
 import ModalForm from "./ModalForm";
@@ -17,18 +21,23 @@ import cameraSmartphone from "../../icons/cameraSmartphone.svg";
 //Thirds Packages
 import { toast, ToastContainer } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faHeart, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faHeart,
+  faPlus,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import SortProduct from "./SortProduct";
+import { addFavorite } from "../../Redux/FavoritesDucks";
 
 const SmartphoneList = () => {
   //Redux Connection
   const dispatch = useDispatch();
-  const smartphones = useSelector(
-    (store) => store.smartphones
-  );
+  const smartphones = useSelector((store) => store.smartphones);
+  const favorites = useSelector(state => state.favorites)
 
   // Load Content
-  const loadSmartphone = async() => {
+  const loadSmartphone = async () => {
     await dispatch(getSmartphone());
     dispatch(setSmartphoneSort("newest"));
   };
@@ -51,13 +60,24 @@ const SmartphoneList = () => {
 
   // Modals Buttons Appearances
   const newSmartphoneModal = (
-    <button className="btn btn-success"><FontAwesomeIcon className="faIcons" icon={faPlus}/>Add new smartphone</button>
+    <button className="btn btn-success">
+      <FontAwesomeIcon className="faIcons" icon={faPlus} />
+      Add new smartphone
+    </button>
   );
   const editSmartphoneModal = (
     <span>
       <FontAwesomeIcon className="faIcons" icon={faEdit} />
     </span>
   );
+
+    //Favorite Handles
+  const addFavorites = async(smartphone) => {
+    await dispatch(addFavorite(smartphone))
+    favorites.alreadyExist ? toast.warn(`${smartphone.name} already exist`)
+    : toast.success(`${smartphone.name} have been added to the favorite list`)
+  }
+
 
   return (
     <>
@@ -87,13 +107,30 @@ const SmartphoneList = () => {
               <div key={smartphone._id} className="spCard">
                 <div className="d-flex">
                   <div className="col-md-4 smartphoneCardImgContainer">
-                    <span className="faIconsFavSpBg" onClick={() => dispatch(setFavorite(smartphone))}><FontAwesomeIcon className="faIconsFavSp" icon={faHeart}/></span>
-                    <img
-                      className="smartphoneCardImg"
-                      src={smartphone.urlImg}
-                      alt="smartphone-img"
-                      title={smartphone.name}
-                    />
+                    <span
+                      className="faIconsFavSpBg"
+                      onClick={() => addFavorites(smartphone)}
+                    >
+                      <FontAwesomeIcon
+                        className="faIconsFavSp"
+                        icon={faHeart}
+                      />
+                    </span>
+                    {!smartphone.urlImg ? (
+                      <img
+                        className="smartphoneCardImg"
+                        src="https://cdn-files.kimovil.com/phone_front/0001/02/thumb_1149_phone_front_big.jpeg"
+                        alt="smartphone-img"
+                        title={smartphone.name}
+                      />
+                    ) : (
+                      <img
+                        className="smartphoneCardImg"
+                        src={smartphone.urlImg}
+                        alt="smartphone-img"
+                        title={smartphone.name}
+                      />
+                    )}
                   </div>
                   <div className="col-md-7 spCardDetail">
                     <div className="spCardTitle">
@@ -171,7 +208,7 @@ const SmartphoneList = () => {
                 </div>
               </div>
             ))}
-            <ToastContainer />
+            <ToastContainer position="top-center" autoClose={2500} />
           </div>
         </div>
       )}

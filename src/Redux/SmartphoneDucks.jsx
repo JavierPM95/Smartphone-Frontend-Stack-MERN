@@ -6,7 +6,6 @@ const smartphoneInitialState = {
   smartphoneArray: [],
   smartphonesFiltered: [],
   sort: {},
-  favorites: []
 };
 
 //Types
@@ -16,7 +15,6 @@ const DELETE_SMARTPHONE = "DELETE_SMARTPHONE";
 const UPDATE_SMARTPHONE = "UPDATE_SMARTPHONE";
 const SET_SMARTPHONE_FILTER = "SET_SMARTPHONE_FILTER";
 const SET_SMARTPHONE_SORT = "SET_SMARTPHONE_SORT";
-const SET_FAVORITE = 'SET_FAVORITE';
 
 //Reducer
 
@@ -44,19 +42,14 @@ export default function smartphoneReducer(
     case SET_SMARTPHONE_FILTER:
       return {
         ...state,
-        sort: {...state.sort, filter: action.payload.filterSelected},
+        sort: { ...state.sort, filter: action.payload.filterSelected },
         smartphonesFiltered: action.payload.smartphoneFilter,
       };
     case SET_SMARTPHONE_SORT:
       return {
         ...state,
-        sort: {...state.sort, sort: action.payload.sortSelected},
+        sort: { ...state.sort, sort: action.payload.sortSelected },
         smartphonesFiltered: action.payload.smartphonesSorted,
-      };
-    case SET_FAVORITE:
-      return {
-        ...state,
-        favorites: state.favorites.concat(action.payload)
       };
     default:
       return state;
@@ -119,7 +112,7 @@ export const editSmartphone = (smartphoneFeatures) => async (dispatch) => {
 export const setSmartphoneFilter = (e) => (dispatch, getState) => {
   const filterSelected = e.target.value;
   const smartphones = getState().smartphones.smartphoneArray;
-  const sortSelected = getState().smartphones.sort.sort
+  const sortSelected = getState().smartphones.sort.sort;
   const smartphoneFilter = () => {
     switch (filterSelected) {
       case "apple":
@@ -149,9 +142,13 @@ export const setSmartphoneFilter = (e) => (dispatch, getState) => {
       default:
         switch (sortSelected) {
           case "newest":
-            return smartphones.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+            return smartphones.sort((a, b) =>
+              a.createdAt < b.createdAt ? 1 : -1
+            );
           case "oldest":
-            return smartphones.sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1));
+            return smartphones.sort((a, b) =>
+              a.createdAt > b.createdAt ? 1 : -1
+            );
           case "a-z":
             return smartphones.sort((a, b) => (a.name > b.name ? 1 : -1));
           case "z-a":
@@ -165,7 +162,7 @@ export const setSmartphoneFilter = (e) => (dispatch, getState) => {
     type: SET_SMARTPHONE_FILTER,
     payload: {
       smartphoneFilter: smartphoneFilter(),
-      filterSelected: filterSelected
+      filterSelected: filterSelected,
     },
   });
 };
@@ -191,17 +188,7 @@ export const setSmartphoneSort = (value) => (dispatch, getState) => {
     type: SET_SMARTPHONE_SORT,
     payload: {
       smartphonesSorted: smartphonesSorted(),
-      sortSelected: sortSelected
+      sortSelected: sortSelected,
     },
   });
 };
-
-
-
-export const setFavorite = (smartphone) => (dispatch) => {
-  console.log(smartphone);
-  dispatch({
-    type: SET_FAVORITE,
-    payload: smartphone
-  })
-}

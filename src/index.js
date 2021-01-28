@@ -21,14 +21,14 @@ const store = generateStore();
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-        <Provider store={store}>
-      <Navbar />
-      <Switch>
+      <Provider store={store}>
+        <Navbar />
+        <Switch>
           <div className="container">
             <Route path="/" component={smartphoneList} />
           </div>
-      </Switch>
-        </Provider>
+        </Switch>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

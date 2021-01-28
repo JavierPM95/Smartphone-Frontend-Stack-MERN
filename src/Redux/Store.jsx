@@ -3,10 +3,12 @@ import thunk from 'redux-thunk';
 
 //Reducer List
 import smartphoneReducer from './SmartphoneDucks';
+import favoritesReducer from './FavoritesDucks';
 
 
 const rootReducer = combineReducers ({
-    smartphones: smartphoneReducer
+    smartphones: smartphoneReducer,
+    favorites: favoritesReducer
 })
 
 //DevTools Config

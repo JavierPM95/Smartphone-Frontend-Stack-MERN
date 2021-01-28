@@ -48,10 +48,10 @@
 
 .faIconsFavSp {
     position: absolute;
-    opacity: 0%;
-    left: 37%;
-    top: 43%;
-    font-size: 30px;
+    opacity: 20%;
+    left: 10%;
+    top: 8%;
+    font-size: 25px;
     color: #ffffff;
     z-index: 1000;
 }
@@ -61,8 +61,7 @@
     position: absolute;
     transition: ease 0.25s;
     color: #DCCB39;
-    transform: scale(1.75);
-
+    transform: scale(1.75) rotateY(180deg) 
 }
 
 /* Details Card */
